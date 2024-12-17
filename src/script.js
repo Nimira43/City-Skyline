@@ -16,7 +16,7 @@ camera.position.set(6, 7, 20)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshPhongMaterial({ color: 0x333333 })
+const material = new THREE.MeshPhongMaterial({ color: 0x777777 })
 
 for (let i = 0; i < number; i++) {
   const building = new THREE.Mesh(geometry, material)
