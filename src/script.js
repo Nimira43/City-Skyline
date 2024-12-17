@@ -1,46 +1,49 @@
-import * as THREE from 'three';
+import * as THREE from 'three'
 
-const number = 20;
+const number = 120;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(window.innerWidth, window.innerHeight)
+document.body.appendChild(renderer.domElement)
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xeeeeee);
+const scene = new THREE.Scene()
+scene.background = new THREE.Color(0x00b5e2)
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 10, 20);
-camera.lookAt(0, 0, 0);
+const aspect = window.innerWidth / window.innerHeight
+const camera = new THREE.PerspectiveCamera(30, aspect)
+camera.position.set(6, 7, 20)
+camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshLambertMaterial({ color: 0x009a17 });
-
+const geometry = new THREE.BoxGeometry(1, 5, 1)
+const material = new THREE.MeshPhongMaterial()
 for (let i = 0; i < number; i++) {
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.set(Math.random() * 20 - 10, 0, Math.random() * 20 - 10);
-  scene.add(mesh);
+  const building = new THREE.Mesh(geometry, material)
+  building.position.set(Math.random() * 20 - 10, 0, Math.random() * 20 - 10)
+  scene.add(building)
 }
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
+const light1 = new THREE.PointLight(0xffffff, 1)
+light1.position.set(3, 7, 9)
+scene.add(light1)
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(10, 10, 10);
-scene.add(directionalLight);
+const light2 = new THREE.PointLight(0xffffff, 1)
+light2.position.set(3, 7, -9)
+scene.add(light2)
 
-renderer.setAnimationLoop(drawFrame);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+scene.add(ambientLight)
+
+renderer.setAnimationLoop(drawFrame)
 
 function drawFrame() {
-  scene.rotation.y += 0.005;
-  renderer.render(scene, camera);
+  scene.rotation.y += 0.005
+  renderer.render(scene, camera)
 }
 
-
-window.addEventListener('resize', onWindowResize, false);
+window.addEventListener('resize', onWindowResize, false)
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(window.innerWidth, window.innerHeight)
 }
