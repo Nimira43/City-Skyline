@@ -1,7 +1,9 @@
 import * as THREE from 'three'
+'three'; import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js'
+import * as dat from 'dat.gui'
 
 const number = 120
 
@@ -18,6 +20,8 @@ const camera = new THREE.PerspectiveCamera(30, aspect)
 camera.position.set(12, 14, 30)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 
+const controls = new OrbitControls(camera, renderer.domElement) 
+controls.update()
 
 const groundGeometry = new THREE.PlaneGeometry(50, 50)
 const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x008000 })
@@ -74,10 +78,30 @@ outlinePass.visibleEdgeColor.set('#000000')
 outlinePass.hiddenEdgeColor.set('#190a05')
 composer.addPass(outlinePass)
 
+const gui = new dat.GUI(); 
+const params = { 
+  'Directional Light Intensity 1': 2, 
+  'Directional Light Intensity 2': 2, 
+  'Ambient Light Intensity': 0.6, 
+  'Scene Rotation Speed': 0.005 
+}; 
+
+gui.add(params, 'Directional Light Intensity 1', 0, 10).onChange(value => { 
+  directionalLight1.intensity = value; 
+}); 
+gui.add(params, 'Directional Light Intensity 2', 0, 10).onChange(value => { 
+  directionalLight2.intensity = value; 
+}); 
+gui.add(params, 'Ambient Light Intensity', 0, 10).onChange(value => { 
+  ambientLight.intensity = value; 
+}); 
+gui.add(params, 'Scene Rotation Speed', 0, 0.05);
+
 renderer.setAnimationLoop(drawFrame)
 
 function drawFrame() {
   scene.rotation.y += 0.005
+  controls.update()
   composer.render()
 }
 
