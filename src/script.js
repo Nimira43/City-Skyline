@@ -29,10 +29,12 @@ for (let i = 0; i < number; i++) {
 
 const light1 = new THREE.PointLight(0xffffff, 1)
 light1.position.set(3, 7, 9)
+light1.castShadow = true
 scene.add(light1)
 
 const light2 = new THREE.PointLight(0xffffff, 1)
 light2.position.set(3, 7, -9)
+light1.castShadow = true
 scene.add(light2)
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
