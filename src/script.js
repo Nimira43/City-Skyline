@@ -16,11 +16,14 @@ camera.position.set(6, 7, 20)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshPhongMaterial({ color: 0x777777 })
+const material = new THREE.MeshLambertMaterial({ color: 0xdddddd })
 
 for (let i = 0; i < number; i++) {
+  const height = Math.random() * 5 + 1
   const building = new THREE.Mesh(geometry, material)
   building.position.set(Math.random() * 20 - 10, 0, Math.random() * 20 - 10)
+  building.castShadow = true
+  building.receiveShadow = true
   scene.add(building)
 }
 
