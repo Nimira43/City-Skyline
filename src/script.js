@@ -61,7 +61,7 @@ function createBuildings() {
     const height = Math.random() * params['Max Building Height'] + 1
     const geometry = new THREE.BoxGeometry(1, height, 1)
     const material = new THREE.MeshStandardMaterial({
-      color: params['Building Color'],
+      color: params['Building Colour'],
       roughness: 0.1,
       metalness: params['Building Metalness']
     })
