@@ -4,6 +4,7 @@ const number = 120;
 
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.shadowMap.enabled = true
 document.body.appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
@@ -14,8 +15,9 @@ const camera = new THREE.PerspectiveCamera(30, aspect)
 camera.position.set(6, 7, 20)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-const geometry = new THREE.BoxGeometry(1, 5, 1)
-const material = new THREE.MeshPhongMaterial()
+const geometry = new THREE.BoxGeometry(1, 1, 1)
+const material = new THREE.MeshPhongMaterial({ color: 0x333333 })
+
 for (let i = 0; i < number; i++) {
   const building = new THREE.Mesh(geometry, material)
   building.position.set(Math.random() * 20 - 10, 0, Math.random() * 20 - 10)
